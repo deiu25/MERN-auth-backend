@@ -9,16 +9,6 @@ const errorHandler = require("./middleware/errorMiddleware");
 
 const app = express();
 
-// Funcția middleware pentru setarea header-urilor
-function setCOOPHeaders(req, res, next) {
-  res.setHeader("Cross-Origin-Opener-Policy", "same-origin-allow-popups");
-    res.setHeader("Cross-Origin-Embedder-Policy", "require-corp");
-    next();
-}
-
-// Utilizează middleware-ul înainte de orice alt middleware/rută
-app.use(setCOOPHeaders);
-
 // Alte middleware-uri
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -27,7 +17,6 @@ app.use(bodyParser.json());
 app.use(
   cors({
     origin: ["http://localhost:3000", "https://syntaxseeker-auth.vercel.app"],
-    methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,
   })
 );
